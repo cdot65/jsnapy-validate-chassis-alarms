@@ -1,0 +1,21 @@
+tests_include:
+  - check_junos_alarms
+
+### ---------------------------------------------------------------------------------
+### Check For Major or Warning Alarms
+### ---------------------------------------------------------------------------------
+check_junos_alarms:
+    - command: show chassis alarms
+
+    - iterate: 
+        xpath: //alarm-information/alarm-summary
+        tests:
+          - exists: no-active-alarms
+            err: Some Alarms are present
+
+    - iterate: 
+        xpath: //alarm-information[alarm-detail]/alarm-detail
+        tests:
+          - not-in: alarm-class, Major, Warning
+            err: "{{ post['../../re-name']}} : Alarm {{ post['alarm-class']}} : {{ post['alarm-description']}}"
+            ignore-null: True

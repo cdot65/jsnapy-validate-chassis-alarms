@@ -1,0 +1,19 @@
+---
+all:
+  vars:
+    backup_directory: ./backup/{{ inventory_hostname }}
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  children:
+    dallas:
+      hosts:
+        dallas-fw0:
+    #     dallas-fw1:
+    #     dallas-sw0:
+    # houston:
+    #   hosts:
+    #     houston-fw0:
+    #     houston-sw0:
+    # austin:
+    #   hosts:
+    #     austin-fw0:
+    #     austin-sw0:
